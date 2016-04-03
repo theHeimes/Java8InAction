@@ -35,6 +35,9 @@ public class FilteringApples{
 			}
 		});
 		System.out.println(redApples2);
+		
+		prettyPrintApple(inventory, new PrintWeightPredicate());
+		prettyPrintApple(inventory, new PrintFancyPredicate());
 
 	}
 
@@ -77,7 +80,31 @@ public class FilteringApples{
 			}
 		}
 		return result;
-	}       
+	}
+	
+	public static void prettyPrintApple(List<Apple> inventory, PrintPredicate p){
+		for(Apple apple : inventory){
+			System.out.println(p.toString(apple));
+		}
+	}
+
+	interface PrintPredicate{
+		public String toString(Apple a);
+	}
+	
+	static class PrintWeightPredicate implements PrintPredicate {
+		public String toString(Apple apple){
+			return "An apple of " + apple.getWeight() + " weight.";
+		}
+	}
+	
+	static class PrintFancyPredicate implements PrintPredicate {
+		public String toString(Apple apple){
+			return "An apple of " + apple.getWeight() + " weight, which is considered a " +
+					(apple.getWeight() > 150 ? "heavy" : "light") + " apple" +
+					" and of " + apple.getColor() + " color.";
+		}
+	}
 
 	public static class Apple {
 		private int weight = 0;
@@ -111,7 +138,7 @@ public class FilteringApples{
 					'}';
 		}
 	}
-
+	
 	interface ApplePredicate{
 		public boolean test(Apple a);
 	}
