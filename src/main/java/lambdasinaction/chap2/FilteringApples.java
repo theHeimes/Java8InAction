@@ -6,7 +6,11 @@ public class FilteringApples{
 
 	public static void main(String ... args){
 
-		List<Apple> inventory = Arrays.asList(new Apple(80,"green"), new Apple(155, "green"), new Apple(120, "red"));	
+		List<Apple> inventory = Arrays.asList(new Apple(80,"green"), 
+				new Apple(155, "green"),
+				new Apple(95, "red"),
+				new Apple(157, "red"),
+				new Apple(120, "red"));	
 
 		// [Apple{color='green', weight=80}, Apple{color='green', weight=155}]
 		List<Apple> greenApples = filterApplesByColor(inventory, "green");
@@ -38,7 +42,34 @@ public class FilteringApples{
 		
 		prettyPrintApple(inventory, new PrintWeightPredicate());
 		prettyPrintApple(inventory, new PrintFancyPredicate());
+		
+		List<Apple> result = filter(inventory, (Apple apple) -> "red".equals(apple.getColor()));
+		System.out.println("\nLambda filtered apples");
+		prettyPrintApple(result, new PrintFancyPredicate());
 
+		System.out.println("\nUsing Predicate interface");
+		prettyPrintApple(filterList(inventory, (Apple apple) -> "green".equals(apple.getColor())), 
+				new PrintFancyPredicate());
+		List<Integer> numbers = new ArrayList<>();
+		for(int i = 0; i < 20; i++){
+			numbers.add(new Integer(i));
+		}
+		List<Integer> evenNumbers = filterList(numbers, (Integer i) -> i % 2 == 0);
+		for(Integer i : evenNumbers) {
+			System.out.print(i.toString() + " ");
+		}
+		
+		inventory.sort(new Comparator<Apple>() {
+			public int compare(Apple a1, Apple a2){
+				return a1.getWeight().compareTo(a2.getWeight());
+			}
+		});
+		System.out.println("\nSorted apples by weight");
+		prettyPrintApple(inventory, new PrintFancyPredicate());
+		
+		System.out.println("\nSorted apples by weight desc with lambda");
+		inventory.sort((Apple a1, Apple a2) -> a2.getWeight().compareTo(a1.getWeight()));
+		prettyPrintApple(inventory, new PrintFancyPredicate());
 	}
 
 	public static List<Apple> filterGreenApples(List<Apple> inventory){
@@ -159,5 +190,18 @@ public class FilteringApples{
 			return "red".equals(apple.getColor()) 
 					&& apple.getWeight() > 150; 
 		}
+	}
+	
+	interface Predicate<T> {
+		boolean test(T t);
+	}
+	public static <T> List<T> filterList(List<T> list, Predicate<T> p) {
+		List<T> result = new ArrayList<>();
+		for(T e : list ) {
+			if (p.test(e)) {
+				result.add(e);
+			}
+		}
+		return result;
 	}
 }
