@@ -1,22 +1,22 @@
 package lambdasinaction.chap3;
 
-public class Apple implements Fruit {
+public class Orange implements Fruit {
     private Integer weight = 0;
     private String color = "";
 
-    public Apple() {
-      this(1, "green");
+    public Orange() {
+      this(1, "orange");
     }
     
-    public Apple(Integer weight) {
-      this(weight, "green");
+    public Orange(Integer weight) {
+      this(weight, "orange");
     }
     
-    public Apple(String color) {
+    public Orange(String color) {
       this(1, color);
     }
     
-    public Apple(Integer weight, String color){
+    public Orange(Integer weight, String color){
         this.weight = weight;
         this.color = color;
     }
@@ -38,7 +38,7 @@ public class Apple implements Fruit {
     }
 
     public String toString() {
-        return "Apple{" +
+        return "Orange{" +
                "color='" + color + '\'' +
                ", weight=" + weight +
                '}';
