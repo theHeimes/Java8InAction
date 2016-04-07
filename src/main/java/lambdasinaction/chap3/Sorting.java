@@ -35,6 +35,11 @@ public class Sorting {
         System.out.println(inventory);
         
         // reshuffling things a little
+        inventory.set(1, new Apple(30, "red"));
+        inventory.sort(comparing((a) -> a.getWeight()));
+        System.out.println(inventory);
+        
+        // reshuffling things a little
         inventory.set(1, new Apple(10, "red"));
         
         // 4
