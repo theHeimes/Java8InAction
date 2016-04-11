@@ -14,7 +14,28 @@ public class StreamBasic {
 
         // Java 8
         getLowCaloricDishesNamesInJava8(Dish.menu).forEach(System.out::println);
-
+        
+        List<String> names = Dish.menu.parallelStream()
+            .filter(d -> {
+              System.out.println("filtering: " + d.getName());
+              return d.getCalories() <= 400; 
+            })
+            .sorted(comparing(Dish::getCalories))
+            .map(d -> {
+              System.out.println("mapping: " + d.getName());
+              return d.getName();
+            })
+            .limit(3)
+            .collect(toList());
+        
+        System.out.println(names);
+        
+        Dish.menu.stream().forEach(System.out::println);
+/*        
+        for(String n : names) {
+          System.out.printf("One low calory dish is: %s\n", n);
+        }
+*/
     }
 
     public static List<String> getLowCaloricDishesNamesInJava7(List<Dish> dishes){
