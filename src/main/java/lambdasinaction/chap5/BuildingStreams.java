@@ -15,6 +15,7 @@ public class BuildingStreams {
         stream.map(String::toUpperCase).forEach(System.out::println);
 
         // Stream.empty
+        @SuppressWarnings("unused")
         Stream<String> emptyStream = Stream.empty();
 
         // Arrays.stream

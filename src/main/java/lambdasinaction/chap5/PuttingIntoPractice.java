@@ -1,11 +1,10 @@
 package lambdasinaction.chap5;
 
-import lambdasinaction.chap5.*;
-
-import java.util.*;
-
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class PuttingIntoPractice{
     public static void main(String ...args){    
